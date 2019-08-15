@@ -1,5 +1,5 @@
-const app = require('express')();
-const bodyParser = require('body-parser');
+const express = require('express');
+const app = express();
 const cors = require('cors');
 
 let config = require('./.env');
@@ -15,10 +15,7 @@ mongoose.connect(config.mongoDBURI + config.mongoDBDataBaseName);
 
 // Usamos middlewares
 app.use(cors());
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
-app.use(bodyParser.json());
+app.use(express.json());
 
 const todosRouter = require('./api/TODOS');
 app.use('/api/todos', todosRouter);

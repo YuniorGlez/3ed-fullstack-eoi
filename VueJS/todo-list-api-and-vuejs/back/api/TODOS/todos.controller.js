@@ -5,11 +5,11 @@ const _UPDATE_DEFAULT_CONFIG = {
 }
 
 module.exports = {
-    getAllTODOs: getAllTODOs,
-    getTODOById: getTODOById,
-    deleteTODOById: deleteTODOById,
-    createTODO: createTODO,
-    updateTODO: updateTODO
+    getAllTODOs,
+    getTODOById,
+    deleteTODOById,
+    createTODO,
+    updateTODO
 }
 
 function getAllTODOs(req, res) {
@@ -42,6 +42,6 @@ function updateTODO(req, res) {
         .catch((err) => handdleError(err, res))
 }
 
-function handdleError(err, res){
+function handdleError(err, res) {
     return res.status(400).json(err);
 }
