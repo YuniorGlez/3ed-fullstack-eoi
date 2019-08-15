@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "TodoList",
   props: {
@@ -13,11 +14,14 @@ export default {
   data() {
     return {
       newTodo: {},
-      todos : []
+      todos: []
     };
   },
   created() {
-    alert('Me acabo de crear')
+    axios
+      .get(this.apiEndpoint)
+      .then(res => (this.todos = res.data))
+      .catch(err => console.log(err.msg));
   }
 };
 </script>
