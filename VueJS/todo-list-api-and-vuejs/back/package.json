@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon index.js",
-    "prod": "NODE_ENV=production node index.js"
+    "dev": "set NODE_ENV=development&&nodemon index.js",
+    "mac_dev": "NODE_ENV=development nodemon index.js",
+    "mac_prod": "NODE_ENV=production node index.js",
+    "prod": "set NODE_ENV=production&&node index.js"
   },
   "author": "",
   "license": "ISC",
