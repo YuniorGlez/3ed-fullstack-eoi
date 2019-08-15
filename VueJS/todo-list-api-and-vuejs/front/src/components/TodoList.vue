@@ -1,6 +1,12 @@
 <template>
   <div class="todo-list">
-    <input v-model="newTodo.text" type="text" />
+    <input v-model="newTodo.text" type="text" @keyup.enter="add" />
+    <br />
+    <small class="error" v-if="error">{{error}}</small>
+    <div class="todo" v-for="todo in todos">
+      {{todo.text}}
+      <button>Borra este TODO</button>
+    </div>
   </div>
 </template>
 
@@ -14,14 +20,31 @@ export default {
   data() {
     return {
       newTodo: {},
-      todos: []
+      todos: [],
+      error: ""
     };
   },
   created() {
     axios
       .get(this.apiEndpoint)
-      .then(res => (this.todos = res.data))
-      .catch(err => console.log(err.msg));
+      .then(res => {
+        this.todos = res.data;
+      })
+      .catch(err => (this.error = err.response.data.message));
+  },
+  methods: {
+    add() {
+      this.error = "";
+      axios
+        .post(this.apiEndpoint, { text: this.newTodo.text })
+        .then(res => {
+          const TODOFinallyPosted = res.data;
+          this.todos.push(TODOFinallyPosted);
+          this.newTodo = {};
+          this.error = "";
+        })
+        .catch(err => (this.error = err.response.data.message));
+    }
   }
 };
 </script>
@@ -29,5 +52,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .todo-list {
+}
+
+.error {
+  color: red;
 }
 </style>
