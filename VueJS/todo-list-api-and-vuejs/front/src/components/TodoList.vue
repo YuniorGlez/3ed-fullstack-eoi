@@ -5,7 +5,7 @@
     <small class="error" v-if="error">{{error}}</small>
     <div class="todo" v-for="todo in todos">
       {{todo.text}}
-      <button>Borra este TODO</button>
+      <button @click="remove(todo._id)">Borra este TODO</button>
     </div>
   </div>
 </template>
@@ -42,6 +42,15 @@ export default {
           this.todos.push(TODOFinallyPosted);
           this.newTodo = {};
           this.error = "";
+        })
+        .catch(err => (this.error = err.response.data.message));
+    },
+    remove(id) {
+      this.error = "";
+      axios
+        .delete(this.apiEndpoint + '/' + id)
+        .then(res => {
+          this.todos = this.todos.filter( todo => todo._id != id) 
         })
         .catch(err => (this.error = err.response.data.message));
     }
