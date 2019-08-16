@@ -19,7 +19,7 @@ const SCHEMA = new mongoose.Schema({
   },
   name: {
     type: String,
-    maxlength: 140,
+    maxlength: [140 , 'No se admiten nombres con más de 140 caracteres'],
   },
   email: {
     type: String,
@@ -36,8 +36,7 @@ const SCHEMA = new mongoose.Schema({
     }
   },
   tweets: {
-    type: Array,
-    default: []
+    type: Array
   }
 })
 

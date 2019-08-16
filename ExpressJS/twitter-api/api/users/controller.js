@@ -28,19 +28,17 @@ function updateOne(req, res) {
 }
 
 function removeOne(req, res) {
-  return MODEL.findByIdAndRemove(req.params.id).then(data => res.json(data))
+  return MODEL.findByIdAndRemove(req.params.id)
+    .then(data => res.json(data))
     .catch(err => res.status(400).json(parseError(err)))
 }
 function populateUserWithTweets(user, response) {
-  if (user) {
-    return TWEETSMODEL.find({ owner: user.username })
+  return !user ?
+    response.json(user) :
+    TWEETSMODEL.find({ owner: user.username })
       .then(tweets => {
         user.tweets = tweets;
         return response.json(user);
       })
       .catch(err => response.status(400).json(parseError(err)))
-  }
-  else {
-    response.json(user)
-  }
 }
