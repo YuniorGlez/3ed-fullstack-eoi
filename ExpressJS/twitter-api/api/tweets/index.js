@@ -7,5 +7,4 @@ router.post('/', controller.createOne);
 router.put('/', controller.updateOne);
 router.delete('/:id', controller.removeOne);
 
-
 module.exports = router;
