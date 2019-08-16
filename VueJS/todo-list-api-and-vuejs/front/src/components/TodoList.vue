@@ -4,7 +4,7 @@
     <button @click="add">Añadir</button>
     <br />
     <small class="error" v-if="error">{{error}}</small>
-    <div class="todo" v-for="todo in todos">
+    <div class="todo" v-for="todo in todos" :key="todo._id">
       <span v-if="todo._id != editing">{{todo.text}}</span>
       <input @keyup.enter="save(todo)" v-else type="text" v-model="todo.text" />
       <button @click="remove(todo._id)">Borra este TODO</button>
