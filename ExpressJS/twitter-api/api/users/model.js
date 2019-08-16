@@ -8,6 +8,14 @@ const SCHEMA = new mongoose.Schema({
     unique: [true, 'El username {VALUE} ya está cogido'],
     minlength: [3, 'No se aceptan username con menos de 3 caracteres'],
     maxlength: [60, 'Username demasiado largo, máximo 60 caracteres'],
+    lowercase : true,
+    validate : {
+      validator (v) {
+        return !v.trim().includes(" ");
+      },
+      msg : 'No se pueden crear usernames con espacios '
+    },
+    trim : true
   },
   name: {
     type: String,
